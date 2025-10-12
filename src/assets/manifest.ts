@@ -14,7 +14,7 @@ const manifest: AssetsManifest = {
             assets: [
                 {
                     alias: "background_main_menu",
-                    src: "https://firebasestorage.googleapis.com/v0/b/pixi-vn.appspot.com/o/public%2Fmain-menu.webp?alt=media",
+                    src: "/asset/background/Noraneko_Background_Pack_1/Apartment_Exterior_Night.png",
                 },
             ],
         },
