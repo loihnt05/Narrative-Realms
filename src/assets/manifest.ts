@@ -177,7 +177,7 @@ const manifest: AssetsManifest = {
             assets: [
                 {
                     alias: "m01-body",
-                    src: "https://firebasestorage.googleapis.com/v0/b/pixi-vn.appspot.com/o/public%2Fbreakdown%2Fm01%2Fm01-body.webp?alt=media",
+                    src: "/asset/character/Protagonist/Glasses/Aoto_Casual_Glasses_Frown_Blush.png",
                 },
                 {
                     alias: "m01-eyes-annoy",
