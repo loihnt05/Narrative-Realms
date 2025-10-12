@@ -87,11 +87,11 @@ const startLabel = newLabel(
             narration.dialogue = { character: james, text: `I know you're both watching, come on out already!` };
         },
         async () => {
-            await showImageContainer("james", ["m01-body", "m01-eyes-annoy", "m01-mouth-annoy00"]);
+            await showImageContainer("james", ["main_Frown"]);
             await moveIn(
                 "sly",
                 {
-                    value: ["fm01-body", "fm01-eyes-wow", "fm01-mouth-soft01"],
+                    value: ["fm01_summer_Open"],
                     options: { xAlign: 0.2, yAlign: 1 },
                 },
                 { direction: "right", ease: "anticipate" }
@@ -99,7 +99,7 @@ const startLabel = newLabel(
             await moveIn(
                 "steph",
                 {
-                    value: ["fm02-body", "fm02-eyes-nervous", "fm02-mouth-nervous00"],
+                    value: ["fm02_uniform_Open"],
                     options: { xAlign: 0.8, yAlign: 1 },
                 },
                 { direction: "left", ease: "easeInOut" }
@@ -107,48 +107,48 @@ const startLabel = newLabel(
             narration.dialogue = { character: sly, text: `I just wanted to see what the new guy was like.` };
         },
         async () => {
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-upset", "fm01-mouth-smile01"]);
+            await showImageContainer("sly", ["fm01_summer_Frown"]);
             narration.dialogGlue = true;
             narration.dialogue = `<span class="inline-block motion-translate-y-loop-25">Hey</span>, you, ${mc.name}- be nice to our little brother,`;
         },
         async () => {
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-smile", "fm01-mouth-grin00"]);
+            await showImageContainer("sly", ["fm01_summer_Smile"]);
             narration.dialogGlue = true;
             narration.dialogue = `or you'll have to deal with *us*.`;
         },
         async () => {
-            await showImageContainer("james", ["m01-body", "m01-eyes-smile", "m01-mouth-neutral00"]);
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-grin", "fm01-mouth-grin00"]);
-            await showImageContainer("steph", ["fm02-body", "fm02-eyes-nervous", "fm02-mouth-smile00"]);
+            await showImageContainer("james", ["main_Frown"]);
+            await showImageContainer("sly", ["fm01_summer_Smile"]);
+            await showImageContainer("steph", ["fm02_uniform_Smile"]);
             narration.dialogue = { character: mc, text: `...` };
         },
         async () => {
-            await showImageContainer("james", ["m01-body", "m01-eyes-smile", "m01-mouth-smile01"]);
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-smile", "fm01-mouth-smile00"]);
+            await showImageContainer("james", ["main_Smile"]);
+            await showImageContainer("sly", ["fm01_summer_Smile"]);
             narration.dialogue = { character: james, text: `${mc.name}, this is ${sly.name}.` };
         },
         async () => {
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-upset", "fm01-mouth-smile00"]);
-            await showImageContainer("steph", ["fm02-body", "fm02-eyes-joy", "fm02-mouth-smile00"]);
+            await showImageContainer("sly", ["fm01_summer_Frown"]);
+            await showImageContainer("steph", ["fm02_uniform_Smile"]);
             narration.dialogGlue = true;
             narration.dialogue = `Yes, that is her real name.`;
         },
         async () => {
-            await showImageContainer("james", ["m01-body", "m01-eyes-grin", "m01-mouth-smile00"]);
+            await showImageContainer("james", ["main_Frown"]);
             narration.dialogue = `I put out my hand.`;
         },
         async () => {
-            await showImageContainer("james", ["m01-body", "m01-eyes-grin", "m01-mouth-grin00"]);
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-upset", "fm01-mouth-upset01"]);
-            await showImageContainer("steph", ["fm02-body", "fm02-eyes-wow", "fm02-mouth-nervous00"]);
+            await showImageContainer("james", ["main_Frown"]);
+            await showImageContainer("sly", ["fm01_summer_Frown"]);
+            await showImageContainer("steph", ["fm02_uniform_Open"]);
             narration.dialogue = {
                 character: sly,
                 text: `I'm not shakin' your hand until I decide you're an all-right dude.`,
             };
         },
         async () => {
-            await showImageContainer("sly", ["fm01-body", "fm01-eyes-grin", "fm01-mouth-serious01"]);
-            await showImageContainer("steph", ["fm02-body", "fm02-eyes-nervous", "fm02-mouth-nervous00"]);
+            await showImageContainer("sly", ["fm01_summer_Open"]);
+            await showImageContainer("steph", ["fm02_uniform_Open"]);
             narration.dialogGlue = true;
             narration.dialogue = `Sorry, policy.`;
         },
