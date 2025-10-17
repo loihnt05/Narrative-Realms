@@ -4,6 +4,11 @@ export const pack1Assets = [
         src: "/asset/background/Noraneko_Background_Pack_1/Apartment_Exterior.png",
     },
     {
+        alias: "open_door",
+        src: "/asset/background/Open_Door.mov",
+    },
+
+    {
         alias: "apartment_exterior_night",
         src: "/asset/background/Noraneko_Background_Pack_1/Apartment_Exterior_Night.png",
     },
