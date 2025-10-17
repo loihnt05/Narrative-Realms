@@ -1,9 +1,9 @@
-import { canvas, ImageSprite, narration } from "@drincs/pixi-vn";
+import { canvas, narration } from "@drincs/pixi-vn";
 import { Box, CircularProgress } from "@mui/joy";
 import Stack from "@mui/joy/Stack";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MenuButton from "../components/MenuButton";
 import { CANVAS_UI_LAYER_NAME, NARRATION_ROUTE } from "../constans";
 import useGameProps from "../hooks/useGameProps";
@@ -24,91 +24,135 @@ export default function MainMenu() {
     const gameProps = useGameProps();
     const { uiTransition: t, navigate, notify } = gameProps;
     const [loading, setLoading] = useState(false);
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         editHideInterface(false);
-        let bg = new ImageSprite({}, "background_main_menu");
-        bg.load();
-        let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
-        if (layer) {
-            layer.addChild(bg);
-        }
 
         return () => {
             canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
         };
-    });
+    }, [editHideInterface]);
+
+    const handleStartClick = async () => {
+        if (!videoRef.current) return;
+
+        setLoading(true);
+        setIsVideoPlaying(true);
+        canvas.removeAll();
+
+        // Play the video
+        try {
+            await videoRef.current.play();
+        } catch (err) {
+            console.error("Video play failed:", err);
+            // If video fails, proceed anyway
+            await navigate(NARRATION_ROUTE);
+            narration
+                .call(startLabel, gameProps)
+                .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
+                .finally(() => setLoading(false));
+        }
+    };
+
+    const handleVideoEnd = async () => {
+        // Navigate to narration after video completes
+        await navigate(NARRATION_ROUTE);
+        narration
+            .call(startLabel, gameProps)
+            .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
+            .finally(() => {
+                setLoading(false);
+                setIsVideoPlaying(false);
+            });
+    };
 
     return (
-        <Stack
-            direction='column'
-            justifyContent='center'
-            alignItems='flex-start'
-            spacing={{ xs: 1, sm: 2, lg: 3 }}
-            sx={{
-                height: "100%",
-                width: "100%",
-                paddingLeft: { xs: 1, sm: 2, md: 4, lg: 6, xl: 8 },
-            }}
-            component={motion.div}
-            initial='closed'
-            animate={"open"}
-            exit='closed'
-        >
-            <MenuButton
-                onClick={() => {
-                    if (!lastSave) {
-                        return;
-                    }
-                    setLoading(true);
-                    loadSave(lastSave, navigate)
-                        .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
-                        .catch((e) => {
-                            notify(t("fail_load"), { variant: "error" });
-                            console.error(e);
-                        })
-                        .finally(() => setLoading(false));
+        <>
+            {/* Video Background */}
+
+
+            {/* Video overlay - only visible when playing */}
+            <video
+                ref={videoRef}
+                muted
+                playsInline
+                onEnded={handleVideoEnd}
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    zIndex: isVideoPlaying ? 1000 : -1,
+                    opacity: isVideoPlaying ? 1 : 0,
+                    transition: "opacity 0.3s ease-in-out",
                 }}
-                transitionDelay={0.1}
-                loading={isLoading}
-                disabled={(!isLoading && !lastSave) || loading}
             >
-                {t("continue")}
-            </MenuButton>
-            <MenuButton
-                onClick={async () => {
-                    setLoading(true);
-                    canvas.removeAll();
-                    await navigate(NARRATION_ROUTE);
-                    narration
-                        .call(startLabel, gameProps)
-                        .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
-                        .finally(() => setLoading(false));
+                <source src="/asset/background/OpenDoor.mov" type="video/quicktime" />
+                Your browser does not support the video tag.
+            </video>
+
+            <Stack
+                direction='column'
+                justifyContent='center'
+                alignItems='flex-start'
+                spacing={{ xs: 1, sm: 2, lg: 3 }}
+                sx={{
+                    height: "100%",
+                    width: "100%",
+                    paddingLeft: { xs: 1, sm: 2, md: 4, lg: 6, xl: 8 },
                 }}
-                transitionDelay={0.2}
-                disabled={loading}
+                component={motion.div}
+                initial='closed'
+                animate={"open"}
+                exit='closed'
             >
-                {t("start")}
-            </MenuButton>
-            <MenuButton onClick={editSaveScreen} transitionDelay={0.3} disabled={loading}>
-                {t("load")}
-            </MenuButton>
-            <MenuButton onClick={() => setOpenSettings(true)} transitionDelay={0.4}>
-                {t("settings")}
-            </MenuButton>
-            {loading && (
-                <Box
-                    sx={{
-                        position: "absolute",
-                        right: 0,
-                        bottom: 0,
-                        padding: 0.5,
+                <MenuButton
+                    onClick={() => {
+                        if (!lastSave) {
+                            return;
+                        }
+                        setLoading(true);
+                        loadSave(lastSave, navigate)
+                            .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
+                            .catch((e) => {
+                                notify(t("fail_load"), { variant: "error" });
+                                console.error(e);
+                            })
+                            .finally(() => setLoading(false));
                     }}
-                    className='motion-preset-pop'
+                    transitionDelay={0.1}
+                    loading={isLoading}
+                    disabled={(!isLoading && !lastSave) || loading}
                 >
-                    <CircularProgress />
-                </Box>
-            )}
-        </Stack>
+                    {t("continue")}
+                </MenuButton>
+                <MenuButton onClick={handleStartClick} transitionDelay={0.2} disabled={loading || isVideoPlaying}>
+                    {t("start")}
+                </MenuButton>
+                <MenuButton onClick={editSaveScreen} transitionDelay={0.3} disabled={loading}>
+                    {t("load")}
+                </MenuButton>
+                <MenuButton onClick={() => setOpenSettings(true)} transitionDelay={0.4}>
+                    {t("settings")}
+                </MenuButton>
+                {loading && (
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            right: 0,
+                            bottom: 0,
+                            padding: 0.5,
+                        }}
+                        className='motion-preset-pop'
+                    >
+                        <CircularProgress />
+                    </Box>
+                )}
+            </Stack>
+        </>
     );
 }
