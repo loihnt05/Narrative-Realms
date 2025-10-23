@@ -29,7 +29,7 @@ export const pack4Assets = [
     },
     {
         alias: "medical_room",
-        src: "https://pub-08202a6e0a0e4f88a0b3f667d3b8ff4d.r2.dev/newBackground/MedicalRoom.png",
+        src: "https://pub-08202a6e0a0e4f88a0b3f667d3b8ff4d.r2.dev/newBackground/MedicalRoom%20.png",
     },
     {
         alias: "pe_room",

@@ -1,5 +1,6 @@
 import { canvas, moveIn, narration, newLabel, showImageContainer } from "@drincs/pixi-vn";
 import { lan, mai, minh, tuan } from "../../values/characters";
+import scene2 from "./scene2";
 
 /**
  * CẢNH 1: LỜI MỜI GỌI
@@ -198,6 +199,11 @@ const scene1 = newLabel("scene1_invitation", [
     },
     async () => {
         narration.dialogue = `**[KẾT THÚC CẢNH 1]**`;
+    },
+    
+    // Continue to Scene 2
+    async (props) => {
+        await narration.call(scene2, props);
     },
 ]);
 
