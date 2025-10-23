@@ -20,4 +20,25 @@ export const sly = new Character("sly", {
     color: "#6d00ac",
 });
 
-RegisteredCharacters.add([mc, james, steph, sly]);
+// Horror visual novel characters
+export const minh = new Character("minh", {
+    name: "Minh",
+    color: "#4a90e2",
+});
+
+export const tuan = new Character("tuan", {
+    name: "Tuấn",
+    color: "#e24a4a",
+});
+
+export const lan = new Character("lan", {
+    name: "Lan",
+    color: "#e2b84a",
+});
+
+export const mai = new Character("mai", {
+    name: "Mai",
+    color: "#9b4ae2",
+});
+
+RegisteredCharacters.add([mc, james, steph, sly, minh, tuan, lan, mai]);

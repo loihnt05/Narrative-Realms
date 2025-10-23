@@ -5,9 +5,7 @@ import { mainAssets } from "./characters/main";
 import { fm01Assets } from "./characters/fm01";
 import { fm02Assets } from "./characters/fm02";
 import { m01Assets } from "./characters/m01";
-import { pack1Assets } from "./backgrounds/pack1";
-import { pack2Assets } from "./backgrounds/pack2";
-import { pack3Assets } from "./backgrounds/pack3";
+import { pack4Assets } from "./backgrounds/pack4";
 
 /**
  * Manifest for the assets used in the game.
@@ -20,8 +18,8 @@ const manifest: AssetsManifest = {
             name: MAIN_MENU_ROUTE,
             assets: [
                 {
-                    alias: "background_main_menu",
-                    src: "/asset/background/Noraneko_Background_Pack_1/Apartment_Exterior_Night.png",
+                    // alias: "background_main_menu",
+                    // src: "/asset/background/Bedroom.png",
                 },
             ],
         },
@@ -63,16 +61,8 @@ const manifest: AssetsManifest = {
         },
         // backgrounds
         {
-            name: "backgrounds_pack1",
-            assets: pack1Assets,
-        },
-        {
-            name: "backgrounds_pack2",
-            assets: pack2Assets,
-        },
-        {
-            name: "backgrounds_pack3",
-            assets: pack3Assets,
+            name: "backgrounds_pack4",
+            assets: pack4Assets,
         },
     ],
 };
