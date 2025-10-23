@@ -18,8 +18,8 @@ const manifest: AssetsManifest = {
             name: MAIN_MENU_ROUTE,
             assets: [
                 {
-                    // alias: "background_main_menu",
-                    // src: "/asset/background/Bedroom.png",
+                    alias: "background_main_menu",
+                    src: "/asset/newBackground/Classroom.png",
                 },
             ],
         },

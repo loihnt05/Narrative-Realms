@@ -91,7 +91,7 @@ export default function MainMenu() {
                     transition: "opacity 0.3s ease-in-out",
                 }}
             >
-                <source src="/asset/background/OpenDoor.mov" type="video/quicktime" />
+                <source src="/asset/newBackground/OpenDoor.mov" type="video/quicktime" />
                 Your browser does not support the video tag.
             </video>
 
